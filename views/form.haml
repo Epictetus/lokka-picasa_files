@@ -1,0 +1,8 @@
+%p
+  %label{:for => 'picasa_file_title'}= t.picasa_file_title
+  %br
+  %input{:type => 'text', :id => 'picasa_file_title', :name => 'title', :value => @photo.title}
+%p
+  %label{:for => 'picasa_file'}= t.picasa_file
+  %br
+  %input{:type => 'file', :id => 'picasa_file', :name => 'file'}

@@ -1,0 +1,6 @@
+%h2= t.edit_picasa_file
+%form{:action => "/admin/plugins/picasa/upload_files/#{@photo.id}/#{@photo.album_id}", :method => 'post', :enctype => 'multipart/form-data'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = haml :"plugin/lokka-picasa_files/views/form"
+  %p
+    %input{:type => 'submit', :value => t.edit}

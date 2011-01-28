@@ -1,0 +1,10 @@
+- content_for :head_last do
+  %link{:rel => 'stylesheet', :href => '/plugin/lokka-picasa_files/views/picasa.css', :type => 'text/css'}
+- content_for :admin_aside do
+  %li.upload_file.parent
+    %h3.title= t.picasa
+    %ul 
+      %li.list
+        %a{:href => '/admin/plugins/picasa/upload_files'}= t.list
+      %li.new
+        %a{:href => '/admin/plugins/picasa/upload_files/new'}= t.new

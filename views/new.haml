@@ -1,0 +1,5 @@
+%h2= t.new_picasa_file
+%form{:action => '/admin/plugins/picasa/upload_files', :method => 'post', :enctype => 'multipart/form-data'}
+  = haml :"plugin/lokka-picasa_files/views/form"
+  %p
+    %input{:type => 'submit', :value => t.new}

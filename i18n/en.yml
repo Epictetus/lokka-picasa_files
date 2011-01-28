@@ -1,0 +1,20 @@
+picasa: Picasa
+picasa_updated: Updated.
+picasa_failed_to_update: Failed to update.
+picasa_email: Email
+picasa_password: Password
+listing_picasa_files: Listing Files
+new_picasa_file: New File
+edit_picasa_file: Edit File
+picasa_file_was_successfully_uploaded: File was successfully uploaded.
+picasa_file_was_successfully_updated: File was successfully updated.
+picasa_file_was_successfully_deleted: File was successfully deleted.
+picasa_failed_to_upload: Failed to upload.
+picasa_failed_to_update: Failed to update.
+picasa_failed_to_delete: Failed to delete.
+picasa_file_album: Album Name
+picasa_file_title: Title
+picasa_file_type: Type
+picasa_file_size: Size
+picasa_file_version_number: Version
+picasa_file: File

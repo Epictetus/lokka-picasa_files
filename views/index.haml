@@ -1,0 +1,18 @@
+%h2= t.listing_picasa_files
+%table
+  %tr 
+    %th= t.picasa_file_title
+    %th= t.picasa_file_type
+    %th= t.picasa_file_size
+    %th= t.picasa_file_version_number
+    %th{:colspan => 2}
+  - @photos.each_with_index do |photo, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td=h photo.title
+      %td= photo.type
+      %td= file_readable_size(photo.size)
+      %td= photo.version_number
+      %td 
+        %a.button{:href => "/admin/plugins/picasa/upload_files/#{photo.id}/#{photo.album_id}/edit"}= t.edit
+      %td 
+        = link_to t.delete, "/admin/plugins/picasa/upload_files/#{photo.id}/#{photo.album_id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

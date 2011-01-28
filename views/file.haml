@@ -1,0 +1,10 @@
+%table
+  - i = 0
+  - while i < @photos.length
+    %tr
+      - @photos[i..i+5].each do |photo|
+        %td
+          %img.upload_file{:id => "upload_file_#{photo.id}", :alt => "#{photo.title}", :style => "max-width:64px;max-height:64px;"}
+          %input{:id => "upload_file_thumbnails_url_#{photo.id}", :type => "hidden", :value => "#{photo.thumbnails[0].url}"}
+          %input{:id => "upload_file_url_#{photo.id}", :type => "hidden", :value => "#{photo.url}"}
+    - i += 6

@@ -1,0 +1,17 @@
+%h2= t.picasa
+%form{:action => '/admin/plugins/picasa_files', :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  .field
+    %label{:for => 'picasa_email'}= t.picasa_email
+    %br
+    %input{:type => 'text', :id => 'picasa_email', :name => 'picasa_email', :value => Option.picasa_email}
+  .field
+    %label{:for => 'picasa_password'}= t.picasa_password
+    %br
+    %input{:type => 'password', :id => 'picasa_password', :name => 'picasa_password', :value => Option.picasa_password}
+  .field
+    %label{:for => 'picasa_album'}= t.picasa_file_album
+    %br
+    %input{:type => 'text', :id => 'picasa_album', :name => 'picasa_album', :value => Option.picasa_album}
+  .field
+    %input{:type => 'submit', :value => t.edit}

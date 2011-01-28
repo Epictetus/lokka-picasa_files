@@ -1,0 +1,6 @@
+- if @photos.length < 19
+  #upload_files{:style => "max-height:200px;max-width:420px;overflow-y:auto;"}
+    = haml :"plugin/lokka-picasa_files/views/file"
+- else
+  #upload_files{:style => "max-height:200px;width:420px;overflow-y:auto;"}
+    = haml :"plugin/lokka-picasa_files/views/file"
