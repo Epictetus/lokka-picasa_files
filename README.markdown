@@ -8,7 +8,13 @@ Installation
 
 Run these commands:
 
-    $ cd public/plugin
+    $ cd APP_ROOT/public/plugin
     $ git clone git://github.com/nkmrshn/lokka-picasa_files.git
     $ cd ../..
     $ bundle install --path vendor/bundle --without production test
+    $ bundle exec rake -f public/plugin/lokka-picasa_files/Rakefile db:migrate
+
+Tips
+----
+
+If memcached is avaiable, it will try to cache the album photos list. If you want to change the server from 'localhost:11211', please modify PLUGIN_ROOT/lib/lokka/picasa_files.rb file.

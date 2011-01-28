@@ -1,9 +1,11 @@
- $:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..'))
+$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..'))
 require 'picasa'
+require 'dalli'
 
 module Lokka
   module PicasaFiles
     @@picasa = Picasa::Picasa.new
+    @@dc = Dalli::Client.new('localhost:11211')
 
     def self.registered(app)
       app.before do
@@ -25,6 +27,10 @@ module Lokka
       app.get '/admin/plugins/picasa/upload_files' do
         album = Option.picasa_album.blank? ? 'Lokka' : Option.picasa_album
         @photos = @@picasa.photos(:album => album)
+        begin
+          @@dc.set('photos', @photos)
+        rescue
+        end
         haml :'plugin/lokka-picasa_files/views/index', :layout => :'admin/layout'
       end 
 
@@ -92,7 +98,15 @@ module Lokka
       end
 
       app.get '/admin/plugins/picasa/files' do
-        @photos = @@picasa.photos(:album => Option.picasa_album)
+        begin
+          @photos = @@dc.get('photos') 
+          if @photos.nil?
+            @photos = @@picasa.photos(:album => Option.picasa_album)
+            @@dc.set('photos', @photos)
+          end
+        rescue
+            @photos = @@picasa.photos(:album => Option.picasa_album)
+        end
         haml :'plugin/lokka-picasa_files/views/list', :layout => false
       end
 

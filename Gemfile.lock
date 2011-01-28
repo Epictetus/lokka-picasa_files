@@ -1,0 +1,9 @@
+GEM
+  specs:
+    xml-simple (1.0.13)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  xml-simple
