@@ -1,9 +1,11 @@
-picasa: Picasa
+picasa: Picasa ウェブアルバム
 picasa_updated: 更新しました。
 picasa_failed_to_update: 更新に失敗しました。
 picasa_email: メールアドレス
 picasa_password: パスワード
 listing_picasa_files: ファイル一覧
+uploading_picasa_file: アップロード中
+updating_picasa_file: 更新中
 new_picasa_file: ファイル登録
 edit_picasa_file: ファイル編集
 picasa_file_was_successfully_uploaded: ファイルをアップロードしました。

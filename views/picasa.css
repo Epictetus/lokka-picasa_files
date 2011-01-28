@@ -1,3 +1,19 @@
 #aside li.upload_file h3 {
   background: url(/admin/images/files.png);
 }
+
+div#indicator {
+  display:none;
+  height: 16px;
+}
+
+div#indicator span {
+  display: block;
+  height: 16px;
+  float: left;
+  margin-right: 5px; 
+}
+
+div#indicator img {
+  vertical-align: middle;
+}

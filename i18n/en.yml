@@ -1,9 +1,11 @@
-picasa: Picasa
+picasa: Picasa Web Album
 picasa_updated: Updated.
 picasa_failed_to_update: Failed to update.
 picasa_email: Email
 picasa_password: Password
 listing_picasa_files: Listing Files
+uploading_picasa_file: Uploading
+updating_picasa_file: Updating
 new_picasa_file: New File
 edit_picasa_file: Edit File
 picasa_file_was_successfully_uploaded: File was successfully uploaded.
