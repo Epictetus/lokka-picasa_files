@@ -5,6 +5,10 @@
   %br
   %input{:type => 'text', :id => 'picasa_file_title', :name => 'title', :value => @photo.title}
 %p
+  %label{:for => 'picasa_file_description'}= t.picasa_file_description
+  %br
+  %input{:type => 'text', :id => 'picasa_file_description', :name => 'description', :value => @photo.description}
+%p
   %label{:for => 'picasa_file'}= t.picasa_file
   %br
   %input{:type => 'file', :id => 'picasa_file', :name => 'file'}

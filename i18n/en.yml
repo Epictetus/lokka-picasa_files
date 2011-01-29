@@ -19,4 +19,5 @@ picasa_file_title: Title
 picasa_file_type: Type
 picasa_file_size: Size
 picasa_file_version_number: Version
+picasa_file_description: Description (Optional)
 picasa_file: File

@@ -7,6 +7,7 @@
 #
 # - fixed to set milliseconds for gphoto:timestamp 
 # - fixed to delete undefined prefix
+# - modifed Picasa.post_photo to post description
 # - modifed Photo.update to update image data
 # - modifed 'source' in Picasa.login for Lokka plugin
 #
@@ -189,7 +190,8 @@ module Picasa
       album_id = options[:album_id] == nil ? "" : options[:album_id]
       local_file_name = options[:local_file_name] == nil ? "" : options[:local_file_name]
       title = options[:title] == nil ? local_file_name : options[:title]
-      content_type = options[:content_type] == nil ? "image/jpeg" : options[:content_type]
+      description = options[:description] == nil ? "" : options[:description]
+      content_type = options[:content_type] == nil ? "" : options[:content_type]
       
       if(image_data == nil)
         return nil
@@ -205,15 +207,33 @@ module Picasa
       else
         url = "http://picasaweb.google.com/data/feed/api/user/#{self.picasa_session.user_id}/album/#{album_name}"
       end
-            
+
+      postPhotoXml = "<entry xmlns='http://www.w3.org/2005/Atom'>
+                      <title>#{title}</title>
+                      <summary>#{description}</summary>
+                      <category scheme='http://schemas.google.com/g/2005#kind'
+                      term='http://schemas.google.com/photos/2007#photo'/>
+                      </entry>"
+
+      boundary = "PICASA"
+
+      headers = {"Content-Type" => "multipart/related; boundary=#{boundary}", 
+                 "Authorization" => "GoogleLogin auth=#{self.picasa_session.auth_key}"}
+
+      body = "" 
+      body.concat("\nMedia multipart posting\n")
+      body.concat("--#{boundary}\n")
+      body.concat("Content-Type: application/atom+xml\n")
+      body.concat("\n#{postPhotoXml}\n")
+      body.concat("--#{boundary}\n")
+      body.concat("Content-Type: #{content_type}\n\n")
+      body.concat(image_data)
+      body.concat("\n--#{boundary}--\n")
+
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      
-      headers = {"Content-Type" => "#{content_type}", 
-        "Authorization" => "GoogleLogin auth=#{self.picasa_session.auth_key}", 
-        "Slug" => title, "Content-Transfer-Encoding" => "binary"}
 
-      response, data = http.post(uri.path, image_data, headers)
+      response, data = http.post(uri.path, body, headers)
       photo = create_photo_from_xml(data)
       
       return photo
@@ -522,7 +542,7 @@ module Picasa
       else
         return false unless %w(image/bmp image/gif image/jpeg image/png).include?(self.type)
 
-        boundary = "LOKKAPICASA"
+        boundary = "PICASA"
         url.concat("media")
 
         headers = {"Content-Type" => "multipart/related; boundary=#{boundary}", "Authorization" => "GoogleLogin auth=#{self.picasa_session.auth_key}"}

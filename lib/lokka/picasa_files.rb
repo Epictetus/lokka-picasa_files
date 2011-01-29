@@ -50,12 +50,14 @@ module Lokka
           params[:file][:tempfile].read,
           :album => album, 
           :title => params['title'],
+          :description => params['description'],
           :content_type => params[:file][:type],
           :local_file_name => params[:file][:filename]
         )
         if @photo.nil?
           @photo = Picasa::Photo.new
           @photo.title = params['title']
+          @photo.description = params['description']
           flash[:notice] = t.picasa_failed_to_upload
         else
           flash[:notice] = t.picasa_file_was_successfully_uploaded
@@ -72,6 +74,7 @@ module Lokka
       app.put '/admin/plugins/picasa/upload_files/:photo_id/:album_id' do |photo_id, album_id|
         @photo = @@picasa.load_photo_with_id(photo_id, album_id)
         @photo.title = params['title']
+        @photo.description = params['description']
         image_data = nil
         if params[:file]
           image_data = params[:file][:tempfile].read
