@@ -5,7 +5,13 @@ require 'dalli'
 module Lokka
   module PicasaFiles
     @@picasa = Picasa::Picasa.new
-    @@dc = Dalli::Client.new('localhost:11211')
+    @@dc = Dalli::Client.new(ENV['MEMCACHE_SERVERS'] || 'localhost:11211')
+
+    alive = nil
+    @@dc.stats.each do |k, v|
+      alive = v unless v.nil?
+    end
+    @@dc = nil if alive.nil?
 
     def self.registered(app)
       app.before do
@@ -28,7 +34,7 @@ module Lokka
         album = Option.picasa_album.blank? ? 'Lokka' : Option.picasa_album
         @photos = @@picasa.photos(:album => album)
         begin
-          @@dc.set('photos', @photos)
+          @@dc.set('photos', @photos) unless @@dc.nil?
         rescue
         end
         haml :'plugin/lokka-picasa_files/views/index', :layout => :'admin/layout'
@@ -102,10 +108,10 @@ module Lokka
 
       app.get '/admin/plugins/picasa/files' do
         begin
-          @photos = @@dc.get('photos') 
+          @photos = @@dc.nil? ? nil : @@dc.get('photos')
           if @photos.nil?
             @photos = @@picasa.photos(:album => Option.picasa_album)
-            @@dc.set('photos', @photos)
+            @@dc.set('photos', @photos) unless @@dc.nil?
           end
         rescue
             @photos = @@picasa.photos(:album => Option.picasa_album)
