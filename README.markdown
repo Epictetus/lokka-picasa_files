@@ -12,7 +12,6 @@ Run these commands:
     $ git clone git://github.com/nkmrshn/lokka-picasa_files.git
     $ cd ../..
     $ bundle install --path vendor/bundle --without production test
-    $ bundle exec rake -f public/plugin/lokka-picasa_files/Rakefile db:migrate
 
 Tips
 ----
